@@ -22,19 +22,15 @@ impl Graph {
         self.idx += 1;
     }
 
-    pub fn add_edge(&mut self, val1: usize, val2: usize) {
-        self.nodes
-            .borrow_mut()
-            .get_mut(&val1)
-            .unwrap()
-            .get_adjs()
-            .push(val2);
+    pub fn add_simple_edge(&mut self, val1: usize, val2: usize) {
+        self.add_directed_edge(val1, val2);
+        self.add_directed_edge(val2, val1);
+    }
 
-        self.nodes
-            .borrow_mut()
-            .get_mut(&val2)
-            .unwrap()
-            .get_adjs()
-            .push(val1);
+    pub fn add_directed_edge(&mut self, val1: usize, val2: usize) {
+        let connecting = self.nodes.clone();
+        let mut connected_nodes = connecting.borrow_mut();
+        let node1 = connected_nodes.get_mut(&val1).unwrap();
+        node1.adj.push(val2);
     }
 }

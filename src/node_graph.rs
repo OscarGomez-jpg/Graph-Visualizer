@@ -1,6 +1,6 @@
 use macroquad::prelude::{Rect, Vec2};
 
-#[derive(Debug)]
+#[derive(Debug, Clone)]
 pub struct NodeGraph {
     pub val: usize,
     pub pos: Vec2,
@@ -56,10 +56,6 @@ impl NodeGraph {
 
     pub fn get_pos(&self) -> &Vec2 {
         &self.pos
-    }
-
-    pub fn get_adjs(&mut self) -> &mut Vec<usize> {
-        &mut self.adj
     }
 
     pub fn get_hitbox(&self) -> &Rect {
