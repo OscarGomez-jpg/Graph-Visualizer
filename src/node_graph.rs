@@ -1,11 +1,14 @@
-use macroquad::prelude::{Rect, Vec2};
+use macroquad::prelude::{Color, Rect, Vec2, WHITE};
+
+use crate::edge::Edge;
 
 #[derive(Debug, Clone)]
 pub struct NodeGraph {
     pub val: usize,
     pub pos: Vec2,
     pub hitbox: Rect,
-    pub adj: Vec<usize>,
+    pub adj: Vec<Edge>,
+    pub color: Color,
 }
 
 impl Default for NodeGraph {
@@ -20,6 +23,7 @@ impl Default for NodeGraph {
                 h: 0.0,
             },
             adj: Default::default(),
+            color: WHITE,
         }
     }
 }
@@ -36,6 +40,7 @@ impl NodeGraph {
                 h: height,
             },
             adj: Vec::new(),
+            color: WHITE,
         }
     }
 

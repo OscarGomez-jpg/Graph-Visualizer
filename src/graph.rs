@@ -1,6 +1,6 @@
 use std::{cell::RefCell, collections::HashMap, rc::Rc};
 
-use crate::node_graph::NodeGraph;
+use crate::{edge::Edge, node_graph::NodeGraph};
 
 pub struct Graph {
     pub nodes: Rc<RefCell<HashMap<usize, NodeGraph>>>,
@@ -31,6 +31,7 @@ impl Graph {
         let connecting = self.nodes.clone();
         let mut connected_nodes = connecting.borrow_mut();
         let node1 = connected_nodes.get_mut(&val1).unwrap();
-        node1.adj.push(val2);
+        let n_edge = Edge::new(val1, val2, 0);
+        node1.adj.push(n_edge);
     }
 }

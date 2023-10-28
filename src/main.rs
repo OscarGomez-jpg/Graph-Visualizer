@@ -1,3 +1,4 @@
+mod edge;
 mod graph;
 mod node_graph;
 mod simulator;
