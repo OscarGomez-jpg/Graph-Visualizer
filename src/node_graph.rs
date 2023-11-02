@@ -1,4 +1,4 @@
-use macroquad::prelude::{Color, Rect, Vec2, WHITE};
+use macroquad::prelude::{Color, Rect, Vec2, RED, WHITE};
 
 use crate::edge::Edge;
 
@@ -15,15 +15,15 @@ impl Default for NodeGraph {
     fn default() -> Self {
         Self {
             val: Default::default(),
-            pos: Vec2::new(0.0, 0.0),
+            pos: Vec2::new(10.0, 10.0),
             hitbox: Rect {
-                x: 0.0,
-                y: 0.0,
-                w: 0.0,
-                h: 0.0,
+                x: 10.0,
+                y: 10.0,
+                w: 10.0,
+                h: 10.0,
             },
             adj: Default::default(),
-            color: WHITE,
+            color: RED,
         }
     }
 }

@@ -24,12 +24,17 @@ impl Simulator {
     }
 
     pub fn initialize(&mut self) {
-        for i in 0..10 {
-            self.graph
-                .add_node(i, i as f32 * 20.0, i as f32 * 20.0, 20.0, 20.0);
+        let height = 40.0;
+        let width = 40.0;
+        let size = 30.0;
+        for i in 1..=10 {
+            for j in 1..=10 {
+                self.graph
+                    .add_node(i, j as f32 * width, i as f32 * height, size, size);
+            }
         }
 
-        let mut added = 5;
+        let mut added = 10;
         while added > 0 {
             let from = rand::gen_range(0, 10);
             let to = rand::gen_range(0, 10);
@@ -47,9 +52,9 @@ impl Simulator {
 
         for val in vals {
             draw_circle(
-                val.get_pos().x,
-                val.get_pos().y,
-                val.get_hitbox().w,
+                val.get_pos().x + val.get_hitbox().w / 2.0,
+                val.get_pos().y + val.get_hitbox().w / 2.0,
+                val.get_hitbox().w / 2.0,
                 val.color,
             );
 
