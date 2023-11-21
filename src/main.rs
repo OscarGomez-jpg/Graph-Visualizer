@@ -5,6 +5,7 @@ mod simulator;
 
 use macroquad::{
     prelude::BLACK,
+    ui::root_ui,
     window::{clear_background, next_frame},
 };
 
@@ -20,6 +21,12 @@ async fn main() {
 
         main_graph.draw();
         main_graph.update();
+
+        if root_ui().button(None, "Add node") {
+            main_graph.add_node();
+        } else if root_ui().button(None, "Add edge") {
+            main_graph.add_edge();
+        }
 
         next_frame().await
     }

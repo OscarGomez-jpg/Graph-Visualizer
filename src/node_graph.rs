@@ -14,7 +14,7 @@ pub struct NodeGraph {
 impl Default for NodeGraph {
     fn default() -> Self {
         Self {
-            val: Default::default(),
+            val: 0,
             pos: Vec2::new(10.0, 10.0),
             hitbox: Rect {
                 x: 10.0,
@@ -52,11 +52,11 @@ impl NodeGraph {
         &self.val
     }
 
-    pub fn set_pos(&mut self, n_pos: Vec2) {
-        self.hitbox.x = n_pos.x;
-        self.hitbox.y = n_pos.y;
-        self.pos.x = n_pos.x;
-        self.pos.y = n_pos.y;
+    pub fn update_position_and_hitbox(&mut self, new_pos: Vec2) {
+        self.hitbox.x = new_pos.x;
+        self.hitbox.y = new_pos.y;
+        self.pos.x = new_pos.x;
+        self.pos.y = new_pos.y;
     }
 
     pub fn get_pos(&self) -> &Vec2 {

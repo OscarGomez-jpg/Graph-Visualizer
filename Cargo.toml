@@ -8,4 +8,3 @@ authors = ["OscarGomez-jpg"]
 
 [dependencies]
 macroquad = "0.4.4"
-rapier2d = {version = "*", features = ["simd-stable"]}

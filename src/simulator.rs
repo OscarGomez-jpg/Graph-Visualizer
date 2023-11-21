@@ -4,6 +4,7 @@ use macroquad::{
         rand, MouseButton, Vec2, GREEN, RED, WHITE,
     },
     shapes::{draw_circle, draw_line},
+    window::{screen_height, screen_width},
 };
 
 use crate::{graph::Graph, node_graph::NodeGraph};
@@ -24,26 +25,26 @@ impl Simulator {
     }
 
     pub fn initialize(&mut self) {
-        let height = 40.0;
-        let width = 40.0;
-        let size = 30.0;
-        for i in 1..=10 {
-            for j in 1..=10 {
-                self.graph
-                    .add_node(i, j as f32 * width, i as f32 * height, size, size);
-            }
-        }
+        // let height = 40.0;
+        // let width = 40.0;
+        // let size = 30.0;
+        // for i in 1..=10 {
+        //     for j in 1..=10 {
+        //         self.graph
+        //             .add_node(i, j as f32 * width, i as f32 * height, size, size);
+        //     }
+        // }
 
-        let mut added = 10;
-        while added > 0 {
-            let from = rand::gen_range(0, 10);
-            let to = rand::gen_range(0, 10);
+        // let mut added = 10;
+        // while added > 0 {
+        //     let from = rand::gen_range(0, 10);
+        //     let to = rand::gen_range(0, 10);
 
-            if to != from {
-                self.graph.add_simple_edge(from as usize, to as usize);
-                added -= 1;
-            }
-        }
+        //     if to != from {
+        //         self.graph.add_simple_edge(from as usize, to as usize);
+        //         added -= 1;
+        //     }
+        // }
     }
 
     pub fn draw(&self) {
@@ -82,22 +83,18 @@ impl Simulator {
         self.select_nodes(mouse_pos);
     }
 
-    // fn check_indexes(&mut self) {
-    //     let nodes = self.graph.nodes.borrow_mut();
-    //     let keys: Vec<usize> = nodes.keys().cloned().collect();
+    pub fn add_node(&mut self) {
+        self.graph
+            .add_node(screen_width() / 2.0, screen_height() / 2.0, 40.0, 40.0)
+    }
 
-    //     for key in &keys {
-    //         for n_key in &keys {
-    //             if nodes
-    //                 .get(key)
-    //                 .unwrap()
-    //                 .is_colliding(&nodes.get(n_key).unwrap().hitbox)
-    //             {
-    //                 println!("Estamos chocando!");
-    //             }
-    //         }
-    //     }
-    // }
+    pub fn add_edge(&mut self) {
+        if let Some(selected) = &self.selected_nodes {
+            for i in 0..(selected.len() - 1) {
+                self.graph.add_simple_edge(selected[i], selected[i + 1]);
+            }
+        }
+    }
 
     fn select_nodes(&mut self, mouse_pos: Vec2) {
         if is_mouse_button_pressed(MouseButton::Left) {
@@ -136,7 +133,7 @@ impl Simulator {
                 }
             } else if let Some(key) = self.dragged_node {
                 if let Some(node) = self.graph.nodes.borrow_mut().get_mut(&key) {
-                    node.set_pos(mouse_pos);
+                    node.update_position_and_hitbox(mouse_pos);
                 }
             }
         } else if is_mouse_button_released(MouseButton::Left) {
