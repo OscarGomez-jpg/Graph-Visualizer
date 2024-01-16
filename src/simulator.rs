@@ -1,7 +1,7 @@
 use macroquad::{
     prelude::{
         is_mouse_button_down, is_mouse_button_pressed, is_mouse_button_released, mouse_position,
-        rand, MouseButton, Vec2, GREEN, RED, WHITE,
+        MouseButton, Vec2, GREEN, RED, WHITE,
     },
     shapes::{draw_circle, draw_line},
     window::{screen_height, screen_width},
@@ -78,7 +78,6 @@ impl Simulator {
 
     pub fn update(&mut self) {
         let mouse_pos = Vec2::from(mouse_position());
-        // self.check_indexes();
         self.dragg_node(mouse_pos);
         self.select_nodes(mouse_pos);
     }
@@ -90,6 +89,9 @@ impl Simulator {
 
     pub fn add_edge(&mut self) {
         if let Some(selected) = &self.selected_nodes {
+            if selected.len() == 0 {
+                return;
+            }
             for i in 0..(selected.len() - 1) {
                 self.graph.add_simple_edge(selected[i], selected[i + 1]);
             }

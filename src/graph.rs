@@ -36,4 +36,6 @@ impl Graph {
         let n_edge = Edge::new(val1, val2, 0);
         node1.adj.push(n_edge);
     }
+
+    pub fn bfs(&mut self, start: usize) {}
 }
